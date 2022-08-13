@@ -3,6 +3,7 @@ package com.application.VetClinic.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -37,6 +38,8 @@ public class Pet {
     @ManyToOne
     private Owner owner;
 
+    @OneToMany(mappedBy = "pet")
+    private List<Visit> visits;
 
 
 }

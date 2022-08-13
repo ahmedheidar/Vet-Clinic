@@ -3,6 +3,7 @@ package com.application.VetClinic.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,5 +29,8 @@ public class Doctor {
     @JoinColumn(name = "clinic_id")
     @ManyToOne
     private Clinic clinic;
+
+    @OneToMany(mappedBy = "doctor")
+    private List<Visit> visits;
 
 }

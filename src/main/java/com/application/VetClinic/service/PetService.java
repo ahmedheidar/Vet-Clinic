@@ -31,8 +31,17 @@ public class PetService {
         return petsDTOs;
     }
 
+    public PetDTO getPetById(Long id) {
+        Pet pet = petRepository.findById(id).orElse(null);
+        PetDTO petDTO = null;
+        if (pet != null) {
+            petDTO = new PetDTO();
+            BeanUtils.copyProperties(pet, petDTO);
+        }
+        return petDTO;
+    }
     public Pet createNewPet(Pet newPet) {
-        if(newPet != null){
+        if (newPet != null) {
             return petRepository.save(newPet);
         }
         return null;
@@ -40,7 +49,7 @@ public class PetService {
 
 
     public Boolean deletePetById(Long id) {
-        if(id != null){
+        if (id != null) {
             petRepository.deleteById(id);
             return true;
         }
@@ -48,10 +57,10 @@ public class PetService {
     }
 
     public Pet updatePet(Long id, Pet newPet) {
-        if(id != null && newPet != null){
+        if (id != null && newPet != null) {
             Pet pet = petRepository.findById(id).orElse(null);
             assert pet != null;
-            BeanUtils.copyProperties(newPet,pet);
+            BeanUtils.copyProperties(newPet, pet);
             return petRepository.save(pet);
         }
         return null;

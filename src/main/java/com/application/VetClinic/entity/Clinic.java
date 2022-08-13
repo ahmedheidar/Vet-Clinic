@@ -38,5 +38,8 @@ public class Clinic {
     @OneToMany(mappedBy = "clinic")
     private List<Doctor> doctors;
 
+    @OneToMany(mappedBy = "clinic")
+    private List<Visit> visits;
+
 
 }

@@ -23,7 +23,7 @@ public class OwnerService {
 
         if(!owners.isEmpty()){
             ownersDTOs = new ArrayList<>();
-            OwnerDTO ownerDTO = null;
+            OwnerDTO ownerDTO;
             for (Owner owner:owners) {
                 ownerDTO = new OwnerDTO();
                 BeanUtils.copyProperties(owner,ownerDTO);
@@ -56,9 +56,20 @@ public class OwnerService {
     public Owner updateOwner(Long id, Owner newOwner) {
         if(id != null && newOwner != null){
             Owner owner = ownerRepository.findById(id).orElse(null);
+            assert owner != null;
             BeanUtils.copyProperties(newOwner,owner);
             return ownerRepository.save(owner);
         }
         return null;
+    }
+
+    public OwnerDTO getOwnerById(Long id) {
+        Owner owner = ownerRepository.findById(id).orElse(null);
+        OwnerDTO ownerDTO = null;
+        if(owner != null){
+            ownerDTO = new OwnerDTO();
+            BeanUtils.copyProperties(owner,ownerDTO);
+        }
+        return ownerDTO;
     }
 }

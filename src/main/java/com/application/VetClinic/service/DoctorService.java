@@ -21,7 +21,7 @@ public class DoctorService {
 
         if(!doctors.isEmpty()){
             doctorsDTOs = new ArrayList<>();
-            DoctorDTO doctorDTO = null;
+            DoctorDTO doctorDTO;
             for (Doctor doctor:doctors) {
                 doctorDTO = new DoctorDTO();
                 BeanUtils.copyProperties(doctor,doctorDTO);
@@ -49,6 +49,7 @@ public class DoctorService {
     public Doctor updateDoctor(Long id, Doctor newDoctor) {
         if(id != null && newDoctor != null){
             Doctor doctor = doctorRepository.findById(id).orElse(null);
+            assert doctor != null;
             BeanUtils.copyProperties(newDoctor,doctor);
             return doctorRepository.save(doctor);
         }
@@ -56,4 +57,11 @@ public class DoctorService {
     }
 
 
+    public DoctorDTO getDoctorById(Long id) {
+        Doctor doctor = doctorRepository.findById(id).orElse(null);
+        DoctorDTO doctorDTO = new DoctorDTO();
+        assert doctor != null;
+        BeanUtils.copyProperties(doctor,doctorDTO);
+        return doctorDTO;
+    }
 }
